@@ -1,0 +1,13 @@
+# nix
+result
+result-*
+.direnv/
+.pre-commit-config.yaml
+
+# appimages
+*.AppImage
+*.appimage
+
+# editor/os
+.DS_Store
+*.swp
