@@ -37,8 +37,8 @@
   services.printing.enable = true;
   services.openssh.enable = true;
   services.asusd.enable = true;
-  services.mongodb.enable = true; # auto-starts at boot
-  services.mongodb.package = pkgs.mongodb-ce; # precompiled, skip local build
+  services.mongodb.enable = true; 
+  services.mongodb.package = pkgs.mongodb-ce; 
 
   systemd.services.ydotoold = {
     description = "ydotool daemon";

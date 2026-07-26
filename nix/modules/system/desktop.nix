@@ -13,7 +13,6 @@
   programs.xwayland.enable = true;
   programs.niri.enable = true;
 
-  # niri has no built-in xwayland; spawn this from niri config to run X11 apps
   environment.systemPackages = [ pkgs.xwayland-satellite ];
 
   fonts.packages = with pkgs; [

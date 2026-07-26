@@ -2,7 +2,7 @@
 
 {
   hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true; # steam/proton need this
+  hardware.graphics.enable32Bit = true; 
   services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 
   # hybrid amd+nvidia (prime offload)
@@ -36,7 +36,6 @@
   hardware.bluetooth.powerOnBoot = true;
   hardware.bluetooth.settings.General = {
     Enable = "Source,Sink,Media,Socket";
-    # exposes codec switching + battery reporting, needed for AAC/mSBC negotiation
     Experimental = true;
   };
 }

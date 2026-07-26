@@ -16,9 +16,11 @@
     egl-wayland
     eza
     fastfetch
+    gcc
     git
     gnome-extension-manager
     gnome-tweaks
+    gnumake
     grim
     hunspell
     hunspellDicts.en_GB-ise
@@ -40,6 +42,7 @@
     nvtopPackages.msm
     nwg-look
     pavucontrol
+    pkg-config
     pv
     (python3.withPackages (python-pkgs: [
       python-pkgs.pandas
