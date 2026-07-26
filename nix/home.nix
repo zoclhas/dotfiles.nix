@@ -4,6 +4,7 @@
   imports = [
     ./modules/home/packages.nix
     ./modules/home/apps.nix
+    ./modules/home/dotfiles.nix
   ];
 
   home.username = "zoc";
