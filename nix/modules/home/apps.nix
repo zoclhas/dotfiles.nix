@@ -51,6 +51,30 @@
         input_path = "~/.config/matugen/templates/quickshell-colors.json";
         output_path = "~/.local/state/quickshell/generated/colors.json";
       };
+      niri = {
+        input_path = "~/.config/matugen/templates/niri-colors.kdl";
+        output_path = "~/.local/state/niri/generated/colors.kdl";
+      };
     };
   };
+
+  programs.obs-studio = {
+    enable = true;
+
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
+
 }

@@ -1,0 +1,62 @@
+overview {
+  backdrop-color "#386184"
+}
+
+layout {
+  gaps 12
+
+  background-color "#00000000"
+  // center-focused-column "on-overflow"
+
+  focus-ring {
+    off
+  }
+
+  border {
+    // Included configs don't implicitly enable the border like the main
+    // config does, so this needs to be explicit.
+    on
+
+    width 2
+    active-gradient from="#DCA561" to="#98BB6C" angle=275
+    // inactive-color "#505050"
+    urgent-color "#9b0000"
+  }
+
+  shadow {
+    on
+
+    softness 100
+    spread 40
+    offset x=0 y=5
+    draw-behind-window false
+    color "#00000064"
+  }
+
+  tab-indicator {
+    width 8
+    gap 4
+    gaps-between-tabs 4
+
+    active-color "#ff5900"
+    inactive-color "#3b281e"
+
+    position "left"
+    place-within-column
+    corner-radius 4
+  }
+
+  struts {
+    // left 10
+    // right 10
+    // top 10
+    // bottom 10
+  }
+}
+
+blur {
+  passes 0
+  offset 2
+  noise 0.15
+  saturation 1.5
+}

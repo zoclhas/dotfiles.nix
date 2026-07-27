@@ -1,0 +1,58 @@
+layer-rule {
+  match namespace="vicinae"
+  // match namespace="osd-pill"
+  // match namespace="media-pill"
+  // match namespace="expand-panel"
+
+  background-effect {
+    xray false
+  }
+
+  shadow {
+    on
+
+    softness 100
+    spread 40
+    offset x=0 y=50
+    draw-behind-window true
+    color "#00000060"
+  }
+}
+
+layer-rule {
+  match namespace="zochell-dashboard"
+  match namespace="zochell-sysmonitor"
+  match namespace="zochell-battery"
+  match namespace="zochell-osd"
+  match namespace="zochell-powermenu"
+  match namespace="zochell-notifications"
+
+  background-effect {
+    xray false
+  }
+
+  geometry-corner-radius 4
+
+  // shadow {
+  //   on
+  //
+  //   softness 80
+  //   spread 30
+  //   offset x=0 y=16
+  //   draw-behind-window true
+  //   color "#00000070"
+  // }
+}
+
+layer-rule {
+  match namespace="zochell-notifications"
+
+  background-effect {
+    xray false
+  }
+}
+
+layer-rule {
+  match namespace="awww-daemon"
+  place-within-backdrop true
+}

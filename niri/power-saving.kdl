@@ -1,0 +1,13 @@
+layout {
+  shadow {
+    off
+  }
+}
+
+blur {
+  off
+}
+
+animations {
+  off
+}

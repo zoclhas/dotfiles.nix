@@ -12,5 +12,9 @@
   "error": "{{colors.error.default.hex}}",
   "outline": "{{colors.outline.default.hex}}",
   "shadow": "{{colors.shadow.default.hex}}",
-  "corner_bg": "{{colors.background.default.hex}}"
+  "corner_bg": "{{colors.background.default.hex}}",
+  "primary_fixed_dim": "{{colors.primary_fixed_dim.default.hex}}",
+  "secondary_fixed_dim": "{{colors.secondary_fixed_dim.default.hex}}",
+  "tertiary_fixed_dim": "{{colors.tertiary_fixed_dim.default.hex}}",
+  "error_container": "{{colors.error_container.default.hex}}"
 }

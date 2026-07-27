@@ -1,0 +1,98 @@
+window-rule {
+  geometry-corner-radius 4
+  clip-to-geometry true
+  default-column-width { fixed 1200; }
+}
+
+window-rule {
+  match title="flameshot"
+  match app-id="flameshot"
+
+  // animations {
+  //   off
+  // }
+}
+
+window-rule {
+  match title="Firefox"
+  match title="figma-linux"
+  match app-id="affinity.exe"
+  match app-id="libreoffice-startcenter"
+  match app-id="libreoffice-impress"
+  match app-id="libreoffice-writer"
+  match app-id="/libreoffice/"
+  match app-id="MultiViewer"
+
+  default-column-width { fixed 1888; }
+}
+
+window-rule {
+    match app-id="firefox$" title="- Gmail "
+
+    block-out-from "screencast"
+}
+
+window-rule {
+  match app-id="com.mitchellh.ghostty"
+  match app-id="kitty"
+  match app-id="dev.zed.Zed"
+  match app-id="Cider"
+
+  opacity 0.925
+  draw-border-with-background false
+  background-effect {
+   blur true
+  }
+}
+
+window-rule {
+  match app-id="Cider"
+
+  default-column-width { fixed 480; }
+}
+
+window-rule {
+  match app-id="scrcpy"
+
+  default-column-width { fixed 494; }
+}
+
+// Picture-in-Picture - PiP
+window-rule {
+  match title="^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
+  match title="^Picture-in-Picture$"
+  open-floating true
+
+  default-column-width { fixed 480; }
+  default-window-height { fixed 270; }
+  default-floating-position x=12 y=12 relative-to="bottom-right"
+
+  geometry-corner-radius 0 // 10
+}
+
+window-rule {
+  match app-id=r"org.kde.kdeconnect.daemon" // ID of presentation pointer overlay
+  open-floating true
+  open-fullscreen false
+  default-floating-position x=0 y=0 relative-to="top-left"
+
+  // Adjust these to your monitor's resolution
+  min-width 1920
+  min-height 1080
+
+  // Optionally customize opacity of pointer
+  // opacity 1.0
+
+  tiled-state true
+
+  focus-ring {
+    off
+  }
+  border {
+    off
+  }
+  shadow {
+    off
+  }
+  draw-border-with-background false
+}

@@ -1,0 +1,14 @@
+output "eDP-1" {
+  mode "1920x1080@144.000"
+  variable-refresh-rate on-demand=true
+}
+
+output "HDMI-A-1" {
+  // mode "3840x2160@120.000"
+  mode "1920x1080@60.000"
+}
+
+debug {
+  render-drm-device "/dev/dri/renderD129"
+  honor-xdg-activation-with-invalid-serial
+}

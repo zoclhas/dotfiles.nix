@@ -1,0 +1,21 @@
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store "
+
+spawn-sh-at-startup "~/.config/quickshell/scripts/launch.sh"
+spawn-at-startup "hypridle"
+
+spawn-at-startup "nm-applet --indicator"
+spawn-at-startup "blueman-applet"
+
+spawn-sh-at-startup "easyeffects --gapplication-service"
+spawn-at-startup "awww-daemon"
+spawn-at-startup "kdeconnect-indicator"
+
+spawn-sh-at-startup "/usr/lib/xdg-desktop-portal-hyprland"
+spawn-sh-at-startup "/usr/lib/xdg-desktop-portal"
+spawn-sh-at-startup "gnome-keyring-daemon --start --components=secrets"
+spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 || /usr/libexec/polkit-kde-authentication-agent-1  || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 || /usr/libexec/polkit-gnome-authentication-agent-1"
+spawn-sh-at-startup "systemctl --user start hyprpolkitagent"
+
+spawn-at-startup "rog-control-center"
+spawn-at-startup "xwayland-satellite"

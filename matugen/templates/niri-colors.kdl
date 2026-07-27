@@ -1,0 +1,19 @@
+overview {
+  backdrop-color "{{colors.secondary.default.hex}}"
+}
+
+layout {
+  border {
+    active-gradient from="{{colors.primary.default.hex}}" to="{{colors.tertiary.default.hex}}" angle=275
+    urgent-color "{{colors.error.default.hex}}"
+  }
+
+  shadow {
+    color "#{{colors.shadow.default.hex_stripped}}64"
+  }
+
+  tab-indicator {
+    active-color "{{colors.primary.default.hex}}"
+    inactive-color "{{colors.surface_variant.default.hex}}"
+  }
+}

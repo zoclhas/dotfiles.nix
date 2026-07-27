@@ -1,0 +1,16 @@
+input {
+  keyboard {
+    xkb {
+      options "ctrl:nocaps"
+    }
+  }
+
+  touchpad {
+    tap
+    natural-scroll
+    middle-emulation
+  }
+
+  disable-power-key-handling
+  warp-mouse-to-focus
+}

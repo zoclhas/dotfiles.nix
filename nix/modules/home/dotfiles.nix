@@ -16,5 +16,6 @@ in
     ".config/zed".source = link "${dir}/zed";
     ".config/zellij".source = link "${dir}/zellij";
     ".config/mimeapps.list".source = link "${dir}/mimeapps.list";
+    ".config/quickshell".source = link "${dir}/quickshell";
   };
 }
