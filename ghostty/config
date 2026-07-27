@@ -21,6 +21,8 @@ cursor-color = #c5c9c7
 selection-background = #22262D
 selection-foreground = #c5c9c7
 
+config-file = "?~/.local/state/ghostty/generated/colors.conf"
+
 font-family = Lilex Nerd Font
 
 shell-integration = zsh

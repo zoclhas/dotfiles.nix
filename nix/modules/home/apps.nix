@@ -55,6 +55,14 @@
         input_path = "~/.config/matugen/templates/niri-colors.kdl";
         output_path = "~/.local/state/niri/generated/colors.kdl";
       };
+      kitty = {
+        input_path = "~/.config/matugen/templates/kitty-colors.conf";
+        output_path = "~/.local/state/kitty/generated/colors.conf";
+      };
+      ghostty = {
+        input_path = "~/.config/matugen/templates/ghostty-colors.conf";
+        output_path = "~/.local/state/ghostty/generated/colors.conf";
+      };
     };
   };
 
