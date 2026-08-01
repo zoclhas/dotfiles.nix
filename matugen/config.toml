@@ -9,6 +9,8 @@ yellow = "#ffff00"
 blue = "#0000ff"
 magenta = "#ff00ff"
 cyan = "#00ffff"
+pink = "#ffc0cb"
+orange = "#ffa500"
 
 [templates.quickshell]
 input_path = "~/.config/matugen/templates/quickshell-colors.json"

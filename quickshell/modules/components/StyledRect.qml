@@ -39,7 +39,7 @@ Item {
   Behavior on color { ColorAnimation { duration: Style.quickDuration } }
 
   RectangularShadow {
-    visible: root.shadowEnabled && root.width > 0 && root.height > 0
+    visible: root.shadowEnabled && Style.shadowEnabled && root.width > 0 && root.height > 0
     anchors.fill: content
     radius: Math.max(root.topLeftRadius, root.topRightRadius, root.bottomLeftRadius, root.bottomRightRadius)
     blur: root.shadowBlur

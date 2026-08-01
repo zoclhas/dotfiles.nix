@@ -11,14 +11,17 @@ Singleton {
 
   property string current: "Balanced"
   readonly property string niriConfigPath: "/home/zoc/.config/niri/config.kdl"
+  readonly property string niriOutputsPath: "/home/zoc/.config/niri/outputs.kdl"
 
   onCurrentChanged: root.syncNiriPowerSaving()
 
   function syncNiriPowerSaving() {
     if (root.current === "PowerSaver") {
       niriEnableProc.running = true;
+      niriRefreshLowProc.running = true;
     } else {
       niriDisableProc.running = true;
+      niriRefreshHighProc.running = true;
     }
   }
 
@@ -50,6 +53,16 @@ Singleton {
   Process {
     id: niriDisableProc
     command: ["sed", "-i", "s|^include \"power-saving.kdl\"|// include \"power-saving.kdl\"|", root.niriConfigPath]
+  }
+
+  Process {
+    id: niriRefreshLowProc
+    command: ["sed", "-i", "s|1920x1080@144.000|1920x1080@60.002|", root.niriOutputsPath]
+  }
+
+  Process {
+    id: niriRefreshHighProc
+    command: ["sed", "-i", "s|1920x1080@60.002|1920x1080@144.000|", root.niriOutputsPath]
   }
 
   Process {

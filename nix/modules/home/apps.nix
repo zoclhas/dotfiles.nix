@@ -63,6 +63,10 @@
         input_path = "~/.config/matugen/templates/ghostty-colors.conf";
         output_path = "~/.local/state/ghostty/generated/colors.conf";
       };
+      kanagawa-mat = {
+        input_path = "~/.config/matugen/templates/kanagawa-mat-palette.lua";
+        output_path = "~/.local/state/nvim/generated/kanagawa-mat-palette.lua";
+      };
     };
   };
 

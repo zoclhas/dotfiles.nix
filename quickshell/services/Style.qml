@@ -39,7 +39,9 @@ QtObject {
     property real borderWidth: 1
     property color borderColor: Colors.outline
 
-    property bool shadowEnabled: true
+    readonly property bool powerSaving: PowerProfileService.current === "PowerSaver"
+
+    readonly property bool shadowEnabled: !powerSaving
     property real shadowBlur: 28
     property real shadowSpread: 1
     property real shadowOffsetX: 0
@@ -47,10 +49,10 @@ QtObject {
     property color shadowColor: Qt.rgba(0, 0, 0, 0x60 / 255)
     property real backgroundOpacity: 0.85
 
-    readonly property int quickDuration: 120
-    readonly property int fadeDuration: 220
-    readonly property int morphDuration: 320
-    readonly property int panelFadeDuration: 420
+    readonly property int quickDuration: powerSaving ? 0 : 120
+    readonly property int fadeDuration: powerSaving ? 0 : 220
+    readonly property int morphDuration: powerSaving ? 0 : 320
+    readonly property int panelFadeDuration: powerSaving ? 0 : 420
     readonly property int morphEasing: Easing.OutCubic
     readonly property int springEasing: Easing.OutBack
 
