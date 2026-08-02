@@ -32,13 +32,23 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
+    extraCompatPackages = [
+      pkgs.proton-ge-bin
+    ];
+    gamescopeSession.enable = true;
+  };
+  programs.gamemode.enable = true;
+  programs.gamescope = {
+    enable = true;
+    enableWsi = true;
+    capSysNice = false;
   };
 
   services.printing.enable = true;
   services.openssh.enable = true;
   services.asusd.enable = true;
-  services.mongodb.enable = true; 
-  services.mongodb.package = pkgs.mongodb-ce; 
+  services.mongodb.enable = true;
+  services.mongodb.package = pkgs.mongodb-ce;
 
   systemd.services.ydotoold = {
     description = "ydotool daemon";
@@ -66,4 +76,9 @@
       TimeoutStopSec = 10;
     };
   };
+
+  virtualisation.docker = {
+    enable = true;
+  };
+  users.users.zoc.extraGroups = [ "docker" ];
 }

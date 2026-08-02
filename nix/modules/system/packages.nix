@@ -16,6 +16,7 @@
     bluez
     brightnessctl
     btop
+    docker
     egl-wayland
     eza
     fastfetch
