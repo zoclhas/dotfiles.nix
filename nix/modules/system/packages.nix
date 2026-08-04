@@ -16,10 +16,12 @@
     bluez
     brightnessctl
     btop
+    cloc
     docker
     egl-wayland
     eza
     fastfetch
+    fd
     gcc
     git
     gnome-extension-manager

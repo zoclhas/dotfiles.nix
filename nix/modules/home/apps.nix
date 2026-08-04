@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
+let
+  soulver-cpp = inputs.soulver-cpp.packages.${pkgs.system}.default;
+in
 {
   dconf = {
     enable = true;
@@ -40,6 +43,13 @@
       enable = true;
       autoStart = true;
     };
+  };
+
+  home.packages = [ soulver-cpp ];
+
+  systemd.user.sessionVariables = {
+    LD_LIBRARY_PATH = "${soulver-cpp}/lib";
+    XDG_DATA_DIRS = "${soulver-cpp}/share:$XDG_DATA_DIRS";
   };
 
   programs.matugen = {

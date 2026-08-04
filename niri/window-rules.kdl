@@ -41,9 +41,18 @@ window-rule {
   opacity 0.925
   draw-border-with-background false
   background-effect {
-   blur true
+    blur true
   }
 }
+
+window-rule {
+  match app-id="vicinae"
+
+  background-effect  {
+    xray false
+  }
+}
+
 
 window-rule {
   match app-id="Cider"

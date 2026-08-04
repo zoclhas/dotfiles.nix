@@ -9,6 +9,9 @@
       url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    soulver-cpp = {
+      url = "github:vicinaehq/soulver-cpp";
+    };
 
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
