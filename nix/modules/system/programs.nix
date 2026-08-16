@@ -12,6 +12,9 @@
     libGL
     fuse3
     glib
+    wayland
+    libxkbcommon
+    dbus
   ];
 
   programs.fish.enable = true;
@@ -47,6 +50,7 @@
   services.printing.enable = true;
   services.openssh.enable = true;
   services.asusd.enable = true;
+  services.hardware.openrgb.enable = true;
   services.mongodb.enable = true;
   services.mongodb.package = pkgs.mongodb-ce;
 
@@ -61,6 +65,7 @@
   };
   environment.sessionVariables = {
     YDOTOOL_SOCKET = "/run/ydotool.socket";
+    LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
   };
 
   systemd.user.services.polkit-gnome-authentication-agent-1 = {

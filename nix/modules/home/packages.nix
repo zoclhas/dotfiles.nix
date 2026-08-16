@@ -8,8 +8,11 @@
     gh
     hypridle
     hyprlock
+    jq
     mongosh
     prismlauncher
+    # rustdesk-flutter
+    rustdesk
     rustup
     swaynotificationcenter
     swayosd

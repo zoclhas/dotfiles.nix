@@ -60,6 +60,7 @@ in
       quickshell = {
         input_path = "~/.config/matugen/templates/quickshell-colors.json";
         output_path = "~/.local/state/quickshell/generated/colors.json";
+        post_hook = "bash ~/.config/matugen/scripts/rgb-sync.sh";
       };
       niri = {
         input_path = "~/.config/matugen/templates/niri-colors.kdl";
