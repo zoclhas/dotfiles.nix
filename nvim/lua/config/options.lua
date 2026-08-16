@@ -15,7 +15,3 @@ vim.filetype.add({
 vim.g.lazyvim_prettier_needs_config = false
 
 vim.g.snacks_animate = false
-
-require("lspconfig").qmlls.setup {
-  cmd = {"qmlls", "-E"}
-}

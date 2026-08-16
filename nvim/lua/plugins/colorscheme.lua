@@ -80,7 +80,14 @@ return {
         },
       })
 
-      vim.cmd.colorscheme("kanagawa")
+      vim.cmd.colorscheme("luna")
     end,
+  },
+
+  {
+    "wtfox/luna.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
 }

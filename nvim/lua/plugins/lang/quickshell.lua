@@ -1,10 +1,9 @@
-local lspconfig = require("lspconfig")
-
-lspconfig.qmlls.setup({
+vim.lsp.config("qmlls", {
   cmd = { "qmlls", "-E" },
   filetypes = { "qml" },
   root_markers = { ".qmlls.ini", "shell.qml", ".git" },
 })
+vim.lsp.enable("qmlls")
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qml",
