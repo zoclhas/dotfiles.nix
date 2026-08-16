@@ -24,6 +24,7 @@ Singleton {
     bodyHyperlinksSupported: true
     bodyImagesSupported: true
     imageSupported: true
+    inlineReplySupported: true
     keepOnReload: false
 
     onNotification: notification => {
@@ -39,7 +40,10 @@ Singleton {
         urgency: notification.urgency,
         time: Date.now(),
         actionIdentifiers: notification.actions.map(a => a.identifier),
-        actionTexts: notification.actions.map(a => a.text)
+        actionTexts: notification.actions.map(a => a.text),
+        read: false,
+        hasInlineReply: notification.hasInlineReply,
+        inlineReplyPlaceholder: notification.inlineReplyPlaceholder
       };
 
       root.list.insert(0, entry);
@@ -112,6 +116,29 @@ Singleton {
     if (!obj) return;
     const action = obj.actions.find(a => a.identifier === identifier);
     if (action) action.invoke();
+  }
+
+  function markRead(id) {
+    const li = root._indexInList(id);
+    if (li !== -1) root.list.setProperty(li, "read", true);
+  }
+
+  function markUnread(id) {
+    const li = root._indexInList(id);
+    if (li !== -1) root.list.setProperty(li, "read", false);
+  }
+
+  function archive(id) {
+    root.markRead(id);
+    root.dismissPopup(id);
+  }
+
+  function sendInlineReply(id, text) {
+    const obj = root._notifObjects[id];
+    if (!obj) return;
+    obj.sendInlineReply(text);
+    root.markRead(id);
+    root.dismissPopup(id);
   }
 
   IpcHandler {

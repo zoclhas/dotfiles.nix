@@ -8,8 +8,18 @@ Item {
     id: root
 
     property int monthShift: 0
+    property date now: new Date()
+
+    Timer {
+        interval: 60000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: root.now = new Date()
+    }
+
     readonly property date viewDate: {
-        const d = new Date();
+        const d = new Date(root.now);
         d.setDate(1);
         d.setMonth(d.getMonth() + root.monthShift);
         return d;
@@ -21,7 +31,7 @@ Item {
         const gridStart = new Date(first);
         gridStart.setDate(1 - startOffset);
 
-        const today = new Date();
+        const today = root.now;
         const rows = [];
         let cursor = new Date(gridStart);
         for (let w = 0; w < 6; w++) {

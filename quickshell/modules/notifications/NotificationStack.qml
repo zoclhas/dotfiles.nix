@@ -45,6 +45,8 @@ Item {
       time: model.time
       actionIdentifiers: model.actionIdentifiers
       actionTexts: model.actionTexts
+      hasInlineReply: model.hasInlineReply
+      inlineReplyPlaceholder: model.inlineReplyPlaceholder
 
       onCardHeightChanged: (id, height) => root.reportHeight(id, height)
       onDismissed: id => Notifications.dismiss(id)

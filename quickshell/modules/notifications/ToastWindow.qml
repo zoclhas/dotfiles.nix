@@ -21,6 +21,8 @@ PanelWindow {
   property double time: 0
   property var actionIdentifiers: []
   property var actionTexts: []
+  property bool hasInlineReply: false
+  property string inlineReplyPlaceholder: ""
 
   property real stackOffset: 0
   readonly property int cardWidth: 340
@@ -69,6 +71,9 @@ PanelWindow {
     time: root.time
     actionIdentifiers: root.actionIdentifiers
     actionTexts: root.actionTexts
+    read: false
+    hasInlineReply: root.hasInlineReply
+    inlineReplyPlaceholder: root.inlineReplyPlaceholder
 
     opacity: 0
 

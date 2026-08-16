@@ -24,6 +24,16 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
 
+    Region {
+        id: emptyRegion
+        item: null
+    }
+    Region {
+        id: pillRegion
+        item: pill
+    }
+    mask: OsdState.active ? pillRegion : emptyRegion
+
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "zochell-osd"
 

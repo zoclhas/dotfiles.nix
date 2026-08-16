@@ -74,4 +74,10 @@ QtObject {
   readonly property string dotsVertical: "\u{f01d9}"
   readonly property string applicationOutline: "\u{f0614}"
   readonly property string contentCopy: "\u{f018f}"
+
+  readonly property string reply: "\u{f045a}"
+  readonly property string archive: "\u{f003c}"
+  readonly property string emailOpen: "\u{f01ef}"
+  readonly property string key: "\u{f0306}"
+  readonly property string send: "\u{f048a}"
 }
