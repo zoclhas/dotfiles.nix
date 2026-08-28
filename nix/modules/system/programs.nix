@@ -44,7 +44,7 @@
   programs.gamescope = {
     enable = true;
     enableWsi = true;
-    capSysNice = false;
+    capSysNice = true;
   };
 
   services.printing.enable = true;
@@ -85,5 +85,9 @@
   virtualisation.docker = {
     enable = true;
   };
-  users.users.zoc.extraGroups = [ "docker" ];
+  users.users.zoc.extraGroups = [
+    "docker"
+    "adbusers"
+    "kvm"
+  ];
 }
