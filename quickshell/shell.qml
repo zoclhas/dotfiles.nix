@@ -11,7 +11,6 @@ import Quickshell.Wayland
 import qs.services
 import qs.modules.bar
 import qs.modules.osd
-import qs.modules.corners
 import qs.modules.notifications
 import qs.modules.powermenu
 import qs.modules.lockscreen
@@ -43,23 +42,14 @@ ShellRoot {
         }
     }
 
-    Variants {
-        model: Quickshell.screens
-
-        ScreenCorners {
-            required property ShellScreen modelData
-            targetScreen: modelData
-        }
-    }
-
-    Variants {
-        model: Quickshell.screens
-
-        NotificationStack {
-            required property ShellScreen modelData
-            targetScreen: modelData
-        }
-    }
+    // Variants {
+    //     model: Quickshell.screens
+    //
+    //     NotificationStack {
+    //         required property ShellScreen modelData
+    //         targetScreen: modelData
+    //     }
+    // }
 
     Variants {
         model: Quickshell.screens

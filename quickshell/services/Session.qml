@@ -12,6 +12,11 @@ Singleton {
     property bool powerMenuOpen: false
     property bool batteryPanelOpen: false
 
+    property string panel: ""
+    function togglePanel(name) {
+        root.panel = root.panel === name ? "" : name;
+    }
+
     readonly property string lockBgPath: Quickshell.env("HOME") + "/.cache/quickshell/lockscreen-bg.png"
 
     function lock() {

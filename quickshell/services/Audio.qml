@@ -7,51 +7,79 @@ import Quickshell.Services.Pipewire
 import qs.services
 
 Singleton {
-  id: root
+    id: root
 
-  readonly property real maxVolume: Style.volumeMax / 100
+    readonly property real maxVolume: Style.volumeMax / 100
 
-  readonly property PwNode sink: Pipewire.defaultAudioSink
-  readonly property PwNode source: Pipewire.defaultAudioSource
+    readonly property PwNode sink: Pipewire.defaultAudioSink
+    readonly property PwNode source: Pipewire.defaultAudioSource
 
-  readonly property real volume: sink?.audio?.volume ?? 0
-  readonly property bool muted: sink?.audio?.muted ?? false
-  readonly property int volumePercent: Math.round(volume * 100)
+    readonly property real volume: sink?.audio?.volume ?? 0
+    readonly property bool muted: sink?.audio?.muted ?? false
+    readonly property int volumePercent: Math.round(volume * 100)
 
-  readonly property bool micMuted: source?.audio?.muted ?? false
+    readonly property bool micMuted: source?.audio?.muted ?? false
 
-  PwObjectTracker {
-    objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
-  }
+    readonly property var sinks: Pipewire.nodes.values.filter(n => n.audio && !n.isStream && n.isSink)
+    readonly property var sources: Pipewire.nodes.values.filter(n => n.audio && !n.isStream && !n.isSink)
 
-  function setVolume(v) {
-    if (!sink?.audio) return;
-    sink.audio.volume = Math.max(0, Math.min(root.maxVolume, v));
-  }
+    PwObjectTracker {
+        objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource].concat(root.sinks, root.sources)
+    }
 
-  function increment(step) {
-    root.setVolume(root.volume + (step ?? 0.05));
-  }
+    function label(node) {
+        return node ? (node.description || node.nickname || node.name) : "";
+    }
 
-  function decrement(step) {
-    root.setVolume(root.volume - (step ?? 0.05));
-  }
+    function setSink(node) {
+        Pipewire.preferredDefaultAudioSink = node;
+    }
 
-  function toggleMute() {
-    if (sink?.audio) sink.audio.muted = !sink.audio.muted;
-  }
+    function setSource(node) {
+        Pipewire.preferredDefaultAudioSource = node;
+    }
 
-  function toggleMicMute() {
-    if (source?.audio) source.audio.muted = !source.audio.muted;
-  }
+    function setVolume(v) {
+        if (!sink?.audio)
+            return;
+        sink.audio.volume = Math.max(0, Math.min(root.maxVolume, v));
+    }
 
-  IpcHandler {
-    target: "audio"
+    function increment(step) {
+        root.setVolume(root.volume + (step ?? 0.05));
+    }
 
-    function increment(step: real): void { root.increment(step); }
-    function decrement(step: real): void { root.decrement(step); }
-    function setVolume(value: real): void { root.setVolume(value); }
-    function toggleMute(): void { root.toggleMute(); }
-    function toggleMicMute(): void { root.toggleMicMute(); }
-  }
+    function decrement(step) {
+        root.setVolume(root.volume - (step ?? 0.05));
+    }
+
+    function toggleMute() {
+        if (sink?.audio)
+            sink.audio.muted = !sink.audio.muted;
+    }
+
+    function toggleMicMute() {
+        if (source?.audio)
+            source.audio.muted = !source.audio.muted;
+    }
+
+    IpcHandler {
+        target: "audio"
+
+        function increment(step: real): void {
+            root.increment(step);
+        }
+        function decrement(step: real): void {
+            root.decrement(step);
+        }
+        function setVolume(value: real): void {
+            root.setVolume(value);
+        }
+        function toggleMute(): void {
+            root.toggleMute();
+        }
+        function toggleMicMute(): void {
+            root.toggleMicMute();
+        }
+    }
 }
