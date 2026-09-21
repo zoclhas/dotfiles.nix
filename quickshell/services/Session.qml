@@ -7,28 +7,77 @@ Singleton {
     id: root
 
     property bool locked: false
-    property bool dashboardOpen: false
-    property bool sysMonitorOpen: false
-    property bool powerMenuOpen: false
-    property bool batteryPanelOpen: false
 
     property string panel: ""
+
+    property string panelHint: ""
+
+    property string _pendingKind: ""
+    function togglePanelFocused(kind) {
+        root._pendingKind = kind;
+        focusedOutputProc.running = true;
+    }
+
+    Process {
+        id: focusedOutputProc
+        command: ["sh", "-c", "niri msg --json focused-output | jq -r .name"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const name = text.trim() || (Quickshell.screens[0]?.name ?? "");
+                root.togglePanel(root._pendingKind + ":" + name);
+            }
+        }
+    }
+
+    IpcHandler {
+        target: "dashboard"
+        function toggle(): void {
+            root.togglePanelFocused("start");
+        }
+    }
+    IpcHandler {
+        target: "volume"
+        function toggle(): void {
+            root.togglePanelFocused("volume");
+        }
+    }
+    IpcHandler {
+        target: "battery"
+        function toggle(): void {
+            root.togglePanelFocused("battery");
+        }
+    }
+
+    property string _dismissedName: ""
+    property real _dismissedAt: 0
+    function noteFocusDismiss(name) {
+        root._dismissedName = name;
+        root._dismissedAt = Date.now();
+    }
     function togglePanel(name) {
+        if (root.panel !== name && root._dismissedName === name && Date.now() - root._dismissedAt < 500) {
+            root._dismissedName = "";
+            return;
+        }
         root.panel = root.panel === name ? "" : name;
     }
 
-    readonly property string lockBgPath: Quickshell.env("HOME") + "/.cache/quickshell/lockscreen-bg.png"
+    property string wallpaper: ""
 
     function lock() {
-        lockCaptureProc.running = true;
+        wallpaperProc.running = true;
     }
     function unlock() {
         root.locked = false;
     }
 
     Process {
-        id: lockCaptureProc
-        command: ["sh", "-c", `mkdir -p "$(dirname '${root.lockBgPath}')" && grim '${root.lockBgPath}.tmp.png' && magick '${root.lockBgPath}.tmp.png' -resize 15% -blur 0x1 -resize 800% '${root.lockBgPath}' && rm -f '${root.lockBgPath}.tmp.png'`]
+        id: wallpaperProc
+        command: ["sh", "-c", "awww query 2>/dev/null | sed -n 's/.*image: //p' | head -n 1"]
+        stdout: StdioCollector {
+            onStreamFinished: root.wallpaper = text.trim()
+        }
+
         onExited: root.locked = true
     }
 
@@ -79,6 +128,10 @@ Singleton {
         function lock(): void {
             root.lock();
         }
+        function togglePowerMenu(): void {
+            root.panelHint = "lock";
+            root.togglePanelFocused("start");
+        }
         function unlock(): void {
             root.unlock();
         }
@@ -96,9 +149,6 @@ Singleton {
         }
         function logout(): void {
             root.logout();
-        }
-        function togglePowerMenu(): void {
-            root.powerMenuOpen = !root.powerMenuOpen;
         }
     }
 }

@@ -93,7 +93,7 @@ binds {
   Ctrl+Alt+Delete allow-inhibiting=false { spawn-sh "qs ipc call session lock"; }
   Mod+P { spawn-sh "qs ipc call session togglePowerMenu"; }
   Mod+U { spawn-sh "qs ipc call dashboard toggle"; }
-  Mod+Shift+U { spawn-sh "qs ipc call sysmonitor toggle"; }
+  Mod+Shift+U { spawn-sh "qs ipc call volume toggle"; }
   Mod+Alt+U { spawn-sh "qs ipc call battery toggle"; }
 
   // Vicinae

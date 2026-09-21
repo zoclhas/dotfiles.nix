@@ -9,7 +9,7 @@ import qs.services
 Singleton {
     id: root
 
-    readonly property real maxVolume: Style.volumeMax / 100
+    readonly property real maxVolume: Theme.volumeMax / 100
 
     readonly property PwNode sink: Pipewire.defaultAudioSink
     readonly property PwNode source: Pipewire.defaultAudioSource

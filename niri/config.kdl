@@ -15,6 +15,7 @@ include "outputs.kdl"
 include "layout.kdl"
 
 include "binds.kdl"
+include "workspaces.kdl"
 include "window-rules.kdl"
 include "layer-rules.kdl"
 include "animations.kdl"

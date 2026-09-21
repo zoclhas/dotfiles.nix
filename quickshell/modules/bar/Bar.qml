@@ -5,7 +5,10 @@ import Quickshell.Wayland
 
 import qs.widgets
 import qs.services
+import qs.modules.bar.clock
+import qs.modules.bar.start
 import qs.modules.bar.tray
+import qs.modules.bar.media
 import qs.modules.bar.volume
 
 PanelWindow {
@@ -41,6 +44,8 @@ PanelWindow {
             anchors.verticalCenter: parent.verticalCenter
             spacing: Theme.spacingSm
 
+            MediaPill {}
+
             Tray {}
 
             VolumeButton {}
@@ -48,11 +53,8 @@ PanelWindow {
         }
 
         RowLayout {
-            Button {
-                icon: "start"
+            StartButton {
                 Layout.leftMargin: Theme.spacingSm
-                iconScale: 1.5
-                gloss: true
             }
 
             Divider {}

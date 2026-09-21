@@ -7,11 +7,21 @@ Item {
 
     property bool checked: false
     property string text: ""
+    property bool highlighted: false
 
     signal toggled(bool checked)
 
     implicitHeight: Theme.buttonHeight - 2
     implicitWidth: box.width + Theme.spacingMd + label.implicitWidth
+
+    Rectangle {
+        visible: root.highlighted
+        anchors.fill: parent
+        anchors.margins: -Theme.px
+        color: "transparent"
+        border.width: Theme.px
+        border.color: Theme.accent
+    }
 
     Bevel {
         id: box

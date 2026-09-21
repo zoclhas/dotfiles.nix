@@ -8,8 +8,6 @@ QtObject {
     readonly property int cellW: 7
     readonly property int cellH: 13
 
-    // Cozette battery glyphs: discharging U+F579..F581 (~10..90%), F578 full;
-    // charging U+F585..F58A (low..high), F584 full; F582 alert.
     function battery(percent, charging) {
         if (charging)
             return percent >= 95 ? "batteryChargeFull" : "batteryCharge" + Math.max(0, Math.min(5, Math.floor(percent / 16)));

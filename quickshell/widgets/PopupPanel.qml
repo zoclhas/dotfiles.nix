@@ -11,23 +11,38 @@ PanelWindow {
     readonly property bool open: Session.panel === root.name
     property Item anchorItem: null
     property real _anchorRight: root.width
+    property real _anchorCenter: root.width / 2
     function _place() {
-        if (root.anchorItem)
-            root._anchorRight = root.anchorItem.mapToItem(null, root.anchorItem.width, 0).x;
+        if (!root.anchorItem)
+            return;
+        const left = root.anchorItem.mapToItem(null, 0, 0).x;
+        root._anchorRight = left + root.anchorItem.width;
+        root._anchorCenter = left + root.anchorItem.width / 2;
     }
     property int bottomInset: Theme.barHeight
     property int sideInset: 0
 
-    default property alias content: holder.data
+    property bool leftAlign: false
+
+    property bool centerAlign: false
+
+    property bool escapeCloses: true
+
+    default property alias content: pop.data
+
+    property alias overlay: overlayLayer.data
 
     signal keyPressed(var event)
 
-    function dismiss() {
-        if (root.open)
-            Session.panel = "";
+    function dismiss(fromFocusLoss) {
+        if (!root.open)
+            return;
+        if (fromFocusLoss === true)
+            Session.noteFocusDismiss(root.name);
+        Session.panel = "";
     }
 
-    visible: root.open
+    visible: root.open || pop.animating
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     anchors {
@@ -65,28 +80,44 @@ PanelWindow {
             if (activeFocus)
                 root._hadFocus = true;
             else if (root._hadFocus)
-                root.dismiss();
+                root.dismiss(true);
         }
 
-        Keys.onEscapePressed: root.dismiss()
+        Keys.onEscapePressed: event => {
+            if (root.escapeCloses)
+                root.dismiss();
+            else
+                event.accepted = false;
+        }
         Keys.onPressed: event => root.keyPressed(event)
 
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.AllButtons
             onPressed: mouse => {
-                const p = mapToItem(holder, mouse.x, mouse.y);
-                if (p.x < 0 || p.y < 0 || p.x > holder.width || p.y > holder.height)
+                const p = mapToItem(pop, mouse.x, mouse.y);
+                if (p.x < 0 || p.y < 0 || p.x > pop.width || p.y > pop.height)
                     root.dismiss();
             }
         }
 
-        Item {
-            id: holder
+        PopIn {
+            id: pop
+            open: root.open
+            wireSteps: 4
+            wipeSteps: 6
+            stepMs: 27
+            originX: root.leftAlign ? 0 : (root.centerAlign ? 0.5 : 1)
+            originY: 1
             anchors.bottom: parent.bottom
-            x: Math.max(root.sideInset, Math.min(root.width - width - root.sideInset, root._anchorRight - width))
-            width: childrenRect.width
-            height: childrenRect.height
+            x: root.leftAlign ? root.sideInset : Math.max(root.sideInset, Math.min(root.width - width - root.sideInset, root.centerAlign ? root._anchorCenter - width / 2 : root._anchorRight - width))
+            width: pop.contentItem.childrenRect.width
+            height: pop.contentItem.childrenRect.height
+        }
+
+        Item {
+            id: overlayLayer
+            anchors.fill: parent
         }
     }
 }

@@ -5,8 +5,6 @@ import Quickshell
 import qs.widgets
 import qs.services
 
-// Volume and display brightness as one control: two flat buttons split by a
-// small divider. Both open the same panel; each scrolls its own value.
 RowLayout {
     id: root
 
@@ -19,7 +17,7 @@ RowLayout {
         flat: true
         toggled: root.open
         icon: Audio.muted ? "volumeMuted" : (Audio.volume > 0.5 ? "volume" : "volumeLow")
-        // fixed 3-digit field so the bar doesn't shift: " 90%"
+
         text: String(Audio.volumePercent).padStart(3, " ") + "%"
         onClicked: Session.togglePanel(root.panelName)
         onWheel: delta => delta > 0 ? Audio.increment(0.05) : Audio.decrement(0.05)

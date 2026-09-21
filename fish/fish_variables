@@ -9,8 +9,13 @@ SETUVAR _fisher_laughedelic_2F_pisces_files:\x7e/\x2econfig/fish/functions/_pisc
 SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejorgebucaran/hydro\x1elaughedelic/pisces
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR _hydro_git_10548:main\u2022\x20
+SETUVAR _hydro_git_106058:main\u2022\x20
+SETUVAR _hydro_git_24766:main\u2022\x20
 SETUVAR _hydro_git_3909:main\x20
+SETUVAR _hydro_git_42800:main\u2022\x20
 SETUVAR _hydro_git_439339:main\u2022\x20\u219110\x20
+SETUVAR _hydro_git_45517:main\u2022\x20
+SETUVAR _hydro_git_51008:main\u2022\x20
 SETUVAR fish_greeting:
 SETUVAR fish_user_paths:/home/zoc/\x2elocal/bin
 SETUVAR pisces_pairs:\x28\x2c\x29\x1e\x5b\x2c\x5d\x1e\x7b\x2c\x7d\x1e\x22\x2c\x22\x1e\x27\x2c\x27

@@ -12,7 +12,6 @@ import qs.services
 import qs.modules.bar
 import qs.modules.osd
 import qs.modules.notifications
-import qs.modules.powermenu
 import qs.modules.lockscreen
 
 ShellRoot {
@@ -42,19 +41,10 @@ ShellRoot {
         }
     }
 
-    // Variants {
-    //     model: Quickshell.screens
-    //
-    //     NotificationStack {
-    //         required property ShellScreen modelData
-    //         targetScreen: modelData
-    //     }
-    // }
-
     Variants {
         model: Quickshell.screens
 
-        PowerMenu {
+        NotificationStack {
             required property ShellScreen modelData
             targetScreen: modelData
         }

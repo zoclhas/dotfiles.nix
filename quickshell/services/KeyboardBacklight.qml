@@ -3,12 +3,6 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-// Keyboard backlight service for the ASUS TUF A15's `asus::kbd_backlight`
-// LED. Reads are polled straight from sysfs via FileView (sysfs LED
-// brightness attributes don't emit inotify events, so watchChanges/
-// onFileChanged never fires even though `cat` shows the value changing
-// live). Writes go through `asusctl leds set/next/prev`, since asusd
-// handles the permissions a plain user doesn't have for the sysfs node.
 Singleton {
   id: root
 

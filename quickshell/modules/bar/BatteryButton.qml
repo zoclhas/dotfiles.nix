@@ -124,6 +124,7 @@ Button {
                 }
                 Button {
                     anchors.right: parent.right
+                    anchors.rightMargin: Theme.spacingSm
                     anchors.verticalCenter: parent.verticalCenter
                     implicitHeight: parent.height - 2 * Theme.px
                     padding: Theme.spacingSm
@@ -210,7 +211,6 @@ Button {
                         highlighted: root.cursor === index
                         width: body.width
                         icon: modelData.icon
-                        iconScale: 1.5
                         label: modelData.label
                         detail: PowerProfileService.current === modelData.key ? "active" : ""
                         toggled: PowerProfileService.current === modelData.key

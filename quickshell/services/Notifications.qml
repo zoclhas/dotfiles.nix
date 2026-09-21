@@ -39,8 +39,8 @@ Singleton {
         image: notification.image,
         urgency: notification.urgency,
         time: Date.now(),
-        actionIdentifiers: notification.actions.map(a => a.identifier),
-        actionTexts: notification.actions.map(a => a.text),
+
+        actions: notification.actions.map(a => ({ identifier: a.identifier, text: a.text })),
         read: false,
         hasInlineReply: notification.hasInlineReply,
         inlineReplyPlaceholder: notification.inlineReplyPlaceholder
@@ -140,6 +140,20 @@ Singleton {
     root.markRead(id);
     root.dismissPopup(id);
   }
+
+  function codeIn(text) {
+    const keyed = text.match(/\b(?:OTP|code|pin|passcode|password|verification)\b[^0-9]{0,12}(\d{4,8})/i);
+    if (keyed) return keyed[1];
+    const bare = text.match(/\b\d{4,8}\b/);
+    return bare ? bare[0] : "";
+  }
+
+  function copy(text) {
+    copyProc.command = ["wl-copy", text];
+    copyProc.running = true;
+  }
+
+  Process { id: copyProc }
 
   IpcHandler {
     target: "notifications"

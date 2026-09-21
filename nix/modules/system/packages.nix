@@ -65,6 +65,7 @@
     vim
     wget
     wl-clipboard
+    cliphist
     wl-mirror
     xdg-desktop-portal-gnome
     xdg-desktop-portal-gtk

@@ -8,7 +8,7 @@ Item {
     default property alias data: contentItem.data
     readonly property alias contentItem: contentItem
 
-    property string style: "outset" // outset | inset | groove | ridge | flat
+    property string style: "outset"
     property int depth: style === "flat" ? 0 : 2
 
     property color faceColor: Theme.face
@@ -49,7 +49,6 @@ Item {
             readonly property real dy: root.hEdges ? index * Theme.px : 0
             readonly property var tones: root._ring(index)
 
-            // bottom/right colour
             PixelRect {
                 x: ring.dx
                 y: ring.dy
@@ -57,7 +56,7 @@ Item {
                 height: root.height - 2 * ring.dy
                 color: ring.tones[1]
             }
-            // top/left colour
+
             PixelRect {
                 x: ring.dx
                 y: ring.dy
@@ -84,7 +83,6 @@ Item {
         horizontal: root.gradient && !root.gloss
     }
 
-    // specular band
     PixelRect {
         visible: root.gloss
         x: root.insetX + Theme.px

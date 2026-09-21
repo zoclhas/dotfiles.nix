@@ -4,52 +4,49 @@ import Quickshell
 import qs.services
 
 Item {
-  id: root
+    id: root
 
-  required property ShellScreen targetScreen
+    required property ShellScreen targetScreen
 
-  property var cardHeights: ({})
+    property var heights: ({})
 
-  function offsetFor(index) {
-    let y = 0;
-    for (let i = 0; i < index; i++) {
-      const id = Notifications.popups.get(i).notifId;
-      y += (root.cardHeights[id] ?? 90) + Style.spacingSm;
+    function offsetFor(index) {
+        let y = 0;
+        for (let i = 0; i < index; i++) {
+            const id = Notifications.popups.get(i).notifId;
+            y += (root.heights[id] ?? 100) + Theme.spacingMd;
+        }
+        return y;
     }
-    return y;
-  }
 
-  function reportHeight(id, height) {
-    const next = Object.assign({}, root.cardHeights);
-    next[id] = height;
-    root.cardHeights = next;
-  }
-
-  Instantiator {
-    model: Notifications.popups
-
-    delegate: ToastWindow {
-      required property int index
-      required property var model
-
-      targetScreen: root.targetScreen
-      stackOffset: root.offsetFor(index)
-
-      notifId: model.notifId
-      appName: model.appName
-      appIcon: model.appIcon
-      summary: model.summary
-      body: model.body
-      image: model.image
-      urgency: model.urgency
-      time: model.time
-      actionIdentifiers: model.actionIdentifiers
-      actionTexts: model.actionTexts
-      hasInlineReply: model.hasInlineReply
-      inlineReplyPlaceholder: model.inlineReplyPlaceholder
-
-      onCardHeightChanged: (id, height) => root.reportHeight(id, height)
-      onDismissed: id => Notifications.dismiss(id)
+    function reportHeight(id, height) {
+        const next = Object.assign({}, root.heights);
+        next[id] = height;
+        root.heights = next;
     }
-  }
+
+    Instantiator {
+        model: Notifications.popups
+
+        delegate: NotificationWindow {
+            required property int index
+            required property var model
+
+            targetScreen: root.targetScreen
+            stackOffset: root.offsetFor(index)
+
+            notifId: model.notifId
+            appName: model.appName
+            appIcon: model.appIcon
+            summary: model.summary
+            body: model.body
+            image: model.image
+            urgency: model.urgency
+            actions: model.actions
+            hasInlineReply: model.hasInlineReply
+            inlineReplyPlaceholder: model.inlineReplyPlaceholder
+
+            onHeightReported: (id, h) => root.reportHeight(id, h)
+        }
+    }
 }

@@ -13,7 +13,7 @@ Singleton {
   property string kind: "volume"
   property real value: 0
   property bool muted: false
-  readonly property real maxForKind: kind === "volume" ? Style.volumeMax : 100
+  readonly property real maxForKind: kind === "volume" ? Theme.volumeMax : 100
 
   function present(newKind, newValue, newMuted) {
     root.kind = newKind;
@@ -25,7 +25,7 @@ Singleton {
 
   Timer {
     id: hideTimer
-    interval: Style.osdHideDelay
+    interval: Theme.osdHideDelay
     onTriggered: root.active = false
   }
 

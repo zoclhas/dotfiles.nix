@@ -1,0 +1,28 @@
+workspace "browser"
+workspace "work"
+workspace "games"
+workspace "media"
+
+window-rule {
+  match app-id="firefox$"
+  match app-id="zen"
+  match app-id="chromium"
+  open-on-workspace "browser"
+}
+
+window-rule {
+  match app-id="kitty"
+  open-on-workspace "work"
+}
+
+window-rule {
+  match app-id="steam"
+  match app-id="/^steam_app_/"
+  open-on-workspace "games"
+}
+
+window-rule {
+  match app-id="cider"
+  match app-id="mpv"
+  open-on-workspace "media"
+}

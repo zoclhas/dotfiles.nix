@@ -45,7 +45,6 @@ Singleton {
         return Qt.darker(c, 1 + 0.35 * f);
     }
 
-    // Main pallete
     readonly property color face: desaturate(surfaceVariant, 0.3)
     readonly property color faceLight: lift(face, 1)
     readonly property color faceHighlight: lift(face, 2.4)
@@ -88,6 +87,11 @@ Singleton {
     }
 
     readonly property int px: 2
+    readonly property real volumeMax: 150
+    readonly property int osdHideDelay: 1400
+    function snap(v) {
+        return Math.round(v / root.px) * root.px;
+    }
 
     readonly property string fontFamily: "CozetteCrossedSevenVector"
     readonly property int fontSize: 16
@@ -101,9 +105,6 @@ Singleton {
     readonly property int spacingMd: 8
     readonly property int spacingLg: 12
     readonly property int spacingXl: 16
-
-    // readonly property int radius: 4 * root.px
-    // readonly property int radiusLg: 6 * root.px
 
     readonly property int barHeight: 34
     readonly property int titleBarHeight: 22

@@ -1,5 +1,5 @@
 vim.lsp.config("qmlls", {
-  cmd = { "qmlls", "-E" },
+  cmd = { vim.fn.stdpath("data") .. "/mason/bin/qmlls", "-E" },
   filetypes = { "qml" },
   root_markers = { ".qmlls.ini", "shell.qml", ".git" },
 })

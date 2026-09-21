@@ -8,8 +8,15 @@ layout {
   background-color "#00000000"
   // center-focused-column "on-overflow"
 
+  // Bevel approximation: niri can't colour edges individually, so two 2px
+  // rings (Theme.px) (outer focus-ring, inner border) each fade light (top-left) to
+  // dark (bottom-right) to mimic quickshell's Bevel "outset".
   focus-ring {
-    off
+    on
+
+    width 2
+    active-gradient from="#8a8a8a" to="#0c0c0c" angle=135
+    inactive-gradient from="#5a5a5a" to="#101010" angle=135
   }
 
   border {
@@ -18,8 +25,8 @@ layout {
     on
 
     width 2
-    active-gradient from="#DCA561" to="#98BB6C" angle=275
-    // inactive-color "#505050"
+    active-gradient from="#4a4a4a" to="#2a2a2a" angle=135
+    inactive-gradient from="#363636" to="#202020" angle=135
     urgent-color "#9b0000"
   }
 
@@ -43,7 +50,7 @@ layout {
 
     position "left"
     place-within-column
-    corner-radius 4
+    corner-radius 2
   }
 
   struts {
@@ -51,6 +58,24 @@ layout {
     // right 10
     // top 10
     // bottom 10
+  }
+}
+
+// Alt+Tab switcher: square, chunky 2px bevelled highlight like the bar.
+recent-windows {
+  debounce-ms 400
+  open-delay-ms 100
+
+  highlight {
+    active-color "#c0c0c0ff"
+    urgent-color "#9b0000ff"
+    padding 8
+    corner-radius 0
+  }
+
+  previews {
+    max-height 320
+    max-scale 0.4
   }
 }
 

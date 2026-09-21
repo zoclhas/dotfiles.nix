@@ -1,159 +1,207 @@
 import QtQuick
+import Quickshell
 import Quickshell.Services.Pam
 
+import qs.widgets
 import qs.services
-import qs.modules.components
+import qs.modules.bar.start
 
-Item {
-  id: root
+Rectangle {
+    id: root
 
-  required property bool lockSecure
-  property date currentTime: new Date()
-  property bool startAnim: false
+    required property bool lockSecure
 
-  readonly property bool shown: root.startAnim && root.lockSecure
-  readonly property real slideOffset: root.shown ? 0 : height
+    color: Theme.desktop
 
-  opacity: root.shown ? 1 : 0
+    property string message: ""
+    property bool failed: false
+    property int attempts: 0
 
-  Behavior on opacity {
-    NumberAnimation { duration: 480; easing.type: Easing.OutCubic }
-  }
-
-  Timer {
-    id: entryTimer
-    interval: 32
-    running: true
-    onTriggered: root.startAnim = true
-  }
-
-  Timer {
-    interval: 1000
-    running: true
-    repeat: true
-    onTriggered: root.currentTime = new Date()
-  }
-
-  Rectangle {
-    anchors.fill: parent
-    color: Colors.background
-  }
-
-  Image {
-    anchors.fill: parent
-    source: "file://" + Session.lockBgPath
-    fillMode: Image.PreserveAspectCrop
-    cache: false
-    asynchronous: true
-  }
-
-  Item {
-    id: content
-    anchors.fill: parent
-    y: root.slideOffset
-
-    Behavior on y {
-      NumberAnimation { duration: 480; easing.type: Easing.OutCubic }
+    function submit() {
+        if (pam.active || password.text.length === 0)
+            return;
+        root.failed = false;
+        root.message = "";
+        pam.start();
     }
 
-    Rectangle {
-      anchors.fill: parent
-      color: Colors.background
-      opacity: 0.94
+    function clear() {
+        password.text = "";
+        root.failed = false;
+        root.message = "";
     }
 
-    Column {
-      anchors.centerIn: parent
-      spacing: Style.spacingXl
+    function grabFocus() {
+        password.forceActiveFocus();
+        pop.play();
+    }
+    onLockSecureChanged: if (root.lockSecure)
+        root.grabFocus()
+    Component.onCompleted: if (root.lockSecure)
+        root.grabFocus()
 
-      Text {
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: Qt.formatTime(root.currentTime, "hh:mm")
-        color: Colors.onBackground
-        font.family: Style.fontFamily
-        font.pixelSize: Style.fs(20)
+    Keys.onEscapePressed: root.clear()
+
+    SystemClock {
+        id: clock
+        precision: SystemClock.Minutes
+    }
+
+    RText {
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.margins: Theme.spacingXl
+        text: Qt.formatTime(clock.date, "hh:mm") + "  " + Qt.formatDate(clock.date, "dddd d MMMM")
+        color: Theme.desktopText
+        font.pixelSize: 28
         font.bold: true
-      }
+    }
 
-      Text {
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: Qt.formatDate(root.currentTime, "dddd, d MMMM")
-        color: Colors.onBackground
-        opacity: 0.7
-        font.family: Style.fontFamily
-        font.pixelSize: Style.fs(1)
-      }
+    Image {
+        anchors.fill: parent
+        visible: Session.wallpaper.length > 0
+        source: Session.wallpaper.length > 0 ? "file://" + Session.wallpaper : ""
+        fillMode: Image.PreserveAspectCrop
+        opacity: 0.35
+        cache: false
+        asynchronous: true
+    }
 
-      StyledRect {
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: 280
-        height: 48
-        radius: Style.radius
-        color: Colors.surfaceVariant
-        borderEnabled: true
-        borderColor: pam.messageIsError ? Colors.error : Colors.outline
+    MediaBox {
+        visible: Media.hasActivePlayer
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: Theme.spacingXl
+        width: 270
+    }
 
-        property real shakeOffset: 0
-        x: shakeOffset
+    PopIn {
+        id: pop
+        anchors.centerIn: parent
+        width: dialog.implicitWidth
+        height: dialog.implicitHeight
+        originX: 0.5
+        originY: 0.5
+        wireSteps: 4
+        wipeSteps: 6
+        stepMs: 27
 
-        SequentialAnimation {
-          id: shakeAnim
-          NumberAnimation { target: parent; property: "shakeOffset"; to: -8; duration: 50 }
-          NumberAnimation { target: parent; property: "shakeOffset"; to: 8; duration: 50 }
-          NumberAnimation { target: parent; property: "shakeOffset"; to: -6; duration: 50 }
-          NumberAnimation { target: parent; property: "shakeOffset"; to: 0; duration: 50 }
+        Dialog {
+            id: dialog
+            anchors.fill: parent
+            title: "Log back in"
+            icon: "lock"
+            showClose: false
+            minWidth: 380
+
+            Column {
+                width: 340
+                spacing: Theme.spacingLg
+
+                Row {
+                    spacing: Theme.spacingLg
+
+                    PixelIcon {
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: "user"
+                        scale: 4
+                    }
+                    Column {
+                        anchors.verticalCenter: parent.verticalCenter
+                        spacing: Theme.spacingXs
+                        RText {
+                            text: Quickshell.env("USER")
+                            font.bold: true
+                        }
+                    }
+                }
+
+                Column {
+                    spacing: Theme.spacingXs
+                    width: 340
+
+                    RText {
+                        text: "Password:"
+                    }
+                    Field {
+                        id: password
+                        width: parent.width
+                        echoMode: TextInput.Password
+                        error: root.failed
+                        enabled: !pam.active
+                        onAccepted: root.submit()
+                    }
+                }
+
+                Row {
+                    visible: pam.active || root.message.length > 0
+                    width: 340
+                    spacing: Theme.spacingMd
+
+                    PixelIcon {
+                        visible: root.failed
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: "alert"
+                        color: Theme.danger
+                    }
+                    RText {
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: parent.width - (root.failed ? Theme.iconSize + parent.spacing : 0)
+                        text: pam.active ? "Checking…" : root.message
+                        color: root.failed ? Theme.danger : Theme.text
+                        wrapMode: Text.Wrap
+                    }
+                }
+
+                Row {
+                    x: 340 - width
+                    spacing: Theme.spacingMd
+
+                    Button {
+                        text: "OK"
+                        gloss: true
+                        minWidth: 90
+                        enabled: !pam.active
+                        onClicked: root.submit()
+                    }
+                    Button {
+                        text: "Clear"
+                        minWidth: 90
+                        onClicked: root.clear()
+                    }
+                }
+            }
+        }
+    }
+
+    PamContext {
+        id: pam
+        configDirectory: Qt.resolvedUrl("../../config/pam").toString().replace("file://", "")
+        config: "password.conf"
+
+        onPamMessage: {
+            if (responseRequired) {
+                respond(password.text);
+            } else if (messageIsError && message.length > 0) {
+                root.message = message;
+            }
         }
 
-        TextInput {
-          id: passwordField
-          anchors.fill: parent
-          anchors.margins: Style.spacingMd
-          verticalAlignment: TextInput.AlignVCenter
-          color: Colors.onBackground
-          font.family: Style.fontFamily
-          font.pixelSize: Style.fs(0)
-          echoMode: TextInput.Password
-          focus: root.lockSecure
-          clip: true
-
-          Text {
-            anchors.verticalCenter: parent.verticalCenter
-            visible: passwordField.text.length === 0
-            text: pam.active ? "Checking..." : "Enter password"
-            color: Colors.onBackground
-            opacity: 0.5
-            font.family: Style.fontFamily
-            font.pixelSize: Style.fs(0)
-          }
-
-          Keys.onReturnPressed: root.trySubmit()
-          Keys.onEnterPressed: root.trySubmit()
+        onCompleted: result => {
+            if (result === PamResult.Success) {
+                Session.unlock();
+                return;
+            }
+            root.failed = true;
+            root.attempts += 1;
+            if (result === PamResult.MaxTries)
+                root.message = "Too many failed attempts. Wait a moment, then try again.";
+            else if (result === PamResult.Error)
+                root.message = "Could not verify the password (authentication error).";
+            else
+                root.message = "The password is incorrect. Please try again." + (root.attempts > 1 ? " (attempt " + root.attempts + ")" : "");
+            password.text = "";
+            password.forceActiveFocus();
         }
-      }
     }
-  }
-
-  function trySubmit() {
-    if (pam.active || passwordField.text.length === 0) return;
-    pam.start();
-  }
-
-  PamContext {
-    id: pam
-    configDirectory: Qt.resolvedUrl("../../config/pam").toString().replace("file://", "")
-    config: "password.conf"
-
-    onPamMessage: {
-      if (responseRequired) respond(passwordField.text);
-    }
-
-    onCompleted: result => {
-      if (result === PamResult.Success) {
-        Session.unlock();
-      } else {
-        shakeAnim.start();
-      }
-      passwordField.text = "";
-    }
-  }
 }

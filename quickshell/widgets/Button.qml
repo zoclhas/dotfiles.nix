@@ -15,6 +15,8 @@ Item {
     property bool flat: false
     property bool toggled: false
     property bool highlighted: false
+
+    property bool cursor: false
     property int padding: Theme.spacingLg
     property real minWidth: 0
 
@@ -81,6 +83,15 @@ Item {
     }
 
     readonly property int mouse_down_offset: mouse.pressed ? Theme.px / 2 : 0
+
+    Rectangle {
+        visible: root.cursor
+        anchors.fill: parent
+        anchors.margins: Theme.px
+        color: "transparent"
+        border.width: Theme.px
+        border.color: Theme.accent
+    }
 
     MouseArea {
         id: mouse
