@@ -26,6 +26,10 @@
       url = "github:InioX/Matugen";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cozette = {
+      url = "github:the-moonwitch/Cozette";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   services.xserver.enable = true;
@@ -20,6 +20,7 @@
     noto-fonts-color-emoji
     nerd-fonts.lilex
     nerd-fonts.jetbrains-mono
+    inputs.cozette.packages.${pkgs.stdenv.hostPlatform.system}.cozette
     cm_unicode
     material-symbols
   ];

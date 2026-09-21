@@ -11,14 +11,12 @@
     jq
     mongosh
     prismlauncher
-    # rustdesk-flutter
-    rustdesk
     rustup
-    swaynotificationcenter
-    swayosd
     waybar
     wlogout
     wireshark
+
+    texliveFull
 
     qt6.qtbase
     qt6.qtsvg

@@ -15,6 +15,8 @@
     wayland
     libxkbcommon
     dbus
+    brotli
+    unixODBC
   ];
 
   programs.fish.enable = true;
