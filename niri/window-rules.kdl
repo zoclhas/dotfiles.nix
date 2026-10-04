@@ -1,5 +1,5 @@
 window-rule {
-  geometry-corner-radius 0
+  geometry-corner-radius 2
   clip-to-geometry true
   default-column-width { fixed 1200; }
 }
@@ -22,8 +22,9 @@ window-rule {
   match app-id="libreoffice-writer"
   match app-id="/libreoffice/"
   match app-id="MultiViewer"
+  match app-id="resolve"
 
-  default-column-width { fixed 1888; }
+  default-column-width { fixed 1912; }
 }
 
 window-rule {
@@ -38,6 +39,7 @@ window-rule {
   match app-id="dev.zed.Zed"
   match app-id="Cider"
 
+  geometry-corner-radius 2
   opacity 0.925
   draw-border-with-background false
   background-effect {
@@ -79,6 +81,9 @@ window-rule {
   default-floating-position x=12 y=12 relative-to="bottom-right"
 
   geometry-corner-radius 0 // 10
+  shadow {
+    off
+  }
 }
 
 window-rule {

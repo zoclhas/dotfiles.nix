@@ -10,6 +10,7 @@ set -U __done_notification_urgency_level low
 
 export EDITOR="nvim"
 export VISUAL="nvim"
+export NIXPKGS_ALLOW_UNFREE=1
 
 ## Environment setup
 # Apply .profile: use this to put fish compatible .profile stuff in
@@ -198,7 +199,7 @@ set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
 # pnpm
-set -gx PNPM_HOME "/home/zoc/.local/share/pnpm"
+set -gx PNPM_HOME '/home/zoc/.local/share/pnpm'
 if not string match -q -- "$PNPM_HOME/bin" $PATH
   set -gx PATH "$PNPM_HOME/bin" $PATH
 end

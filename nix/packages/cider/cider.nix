@@ -5,7 +5,7 @@ let
   version = "4.1.0";
   src = /home/zoc/.local/share/nix-appimages/Cider.AppImage; # Proprietory =(
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit pname version src;
   };
 in

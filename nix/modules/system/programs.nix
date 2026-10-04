@@ -16,7 +16,7 @@
     libxkbcommon
     dbus
     brotli
-    unixODBC
+    unixodbc
   ];
 
   programs.fish.enable = true;

@@ -12,5 +12,5 @@
 
   networking.hostName = "nora";
 
-  system.stateVersion = "26.05";
+  stdenv.hostPlatform.system.stateVersion = "26.05";
 }

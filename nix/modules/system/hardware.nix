@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   hardware.graphics.enable = true;
@@ -33,6 +33,41 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+
+    extraConfig.pipewire."99-deepfilter" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-filter-chain";
+          args = {
+            "node.description" = "DeepFilter Mic";
+            "media.name" = "DeepFilter Mic";
+            "filter.graph" = {
+              nodes = [
+                {
+                  type = "ladspa";
+                  name = "deepfilter";
+                  plugin = "${pkgs.deepfilternet}/lib/ladspa/libdeep_filter_ladspa.so";
+                  label = "deep_filter_mono";
+                  control = {
+                    "Attenuation Limit (dB)" = 100;
+                  };
+                }
+              ];
+            };
+            "audio.rate" = 48000;
+            "audio.position" = [ "MONO" ];
+            "capture.props" = {
+              "node.name" = "capture.deepfilter_mic";
+              "node.passive" = true;
+            };
+            "playback.props" = {
+              "node.name" = "deepfilter_mic";
+              "media.class" = "Audio/Source";
+            };
+          };
+        }
+      ];
+    };
   };
 
   hardware.bluetooth.enable = true;

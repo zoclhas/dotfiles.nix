@@ -18,11 +18,15 @@ window-rule {
 window-rule {
   match app-id="steam"
   match app-id="/^steam_app_/"
+  match app-id="org.prismlauncher.PrismLauncher"
+  match app-id="Minecraft$"
   open-on-workspace "games"
 }
 
 window-rule {
   match app-id="cider"
   match app-id="mpv"
+  match app-id="com.obsproject.Studio"
+  match app-id="GalaxyBudsClient"
   open-on-workspace "media"
 }

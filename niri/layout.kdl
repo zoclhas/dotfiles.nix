@@ -3,25 +3,21 @@ overview {
 }
 
 layout {
-  gaps 12
+  gaps 4
 
   background-color "#00000000"
   // center-focused-column "on-overflow"
+  // always-center-single-column
 
-  // Bevel approximation: niri can't colour edges individually, so two 2px
-  // rings (Theme.px) (outer focus-ring, inner border) each fade light (top-left) to
-  // dark (bottom-right) to mimic quickshell's Bevel "outset".
   focus-ring {
     on
 
-    width 2
+    width 1
     active-gradient from="#8a8a8a" to="#0c0c0c" angle=135
     inactive-gradient from="#5a5a5a" to="#101010" angle=135
   }
 
   border {
-    // Included configs don't implicitly enable the border like the main
-    // config does, so this needs to be explicit.
     on
 
     width 2
@@ -53,15 +49,8 @@ layout {
     corner-radius 2
   }
 
-  struts {
-    // left 10
-    // right 10
-    // top 10
-    // bottom 10
-  }
 }
 
-// Alt+Tab switcher: square, chunky 2px bevelled highlight like the bar.
 recent-windows {
   debounce-ms 400
   open-delay-ms 100

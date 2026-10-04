@@ -20,7 +20,10 @@
     noto-fonts-color-emoji
     nerd-fonts.lilex
     nerd-fonts.jetbrains-mono
+    nerd-fonts.departure-mono
     inputs.cozette.packages.${pkgs.stdenv.hostPlatform.system}.cozette
+    inter
+    poppins
     cm_unicode
     material-symbols
   ];
