@@ -12,6 +12,7 @@
     mongosh
     prismlauncher
     rustup
+    scrcpy
     waybar
     wlogout
     wireshark

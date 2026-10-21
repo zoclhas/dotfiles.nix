@@ -1,7 +1,11 @@
 { pkgs, inputs, ... }:
 
 let
-  soulver-cpp = inputs.soulver-cpp.packages.${pkgs.system}.default;
+  system = pkgs.stdenv.hostPlatform.system;
+  soulver-cpp = inputs.soulver-cpp.packages.${system}.default;
+  vicinae = inputs.vicinae.packages.${system}.default.override {
+    gcc15Stdenv = pkgs.gcc16Stdenv;
+  };
 in
 {
   dconf = {
@@ -39,6 +43,7 @@ in
 
   programs.vicinae = {
     enable = true;
+    package = vicinae;
     systemd = {
       enable = true;
       autoStart = true;
