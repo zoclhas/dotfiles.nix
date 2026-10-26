@@ -6,6 +6,12 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
+  };
 
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
@@ -38,6 +44,7 @@
     libreoffice-qt
     lm_sensors
     mpv
+    file-roller
     nemo-with-extensions
     neovim
     networkmanager

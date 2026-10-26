@@ -12,5 +12,11 @@
 
   home.stateVersion = "26.05";
 
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
+  };
+
   programs.home-manager.enable = true;
 }
